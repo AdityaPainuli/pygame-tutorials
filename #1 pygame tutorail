@@ -1,0 +1,26 @@
+"""this is the first video tutorial source code .."""
+import pygame
+
+pygame.init()
+Width = 600
+Height = 600
+screen = pygame.display.set_mode((Width,Height))
+pygame.display.set_caption("First Game")
+bg = pygame.image.load("bg.png")
+pygame.display.set_icon(bg)
+bg = pygame.transform.scale(bg,(Width,Height))
+alien = pygame.image.load("enemy1.png")
+alien = pygame.transform.scale(alien,(64,64))
+run = True
+while run:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            run = False
+    screen.fill((225,0,0))
+    screen.blit(bg,(0,0))
+    screen.blit(alien,(230,450))
+    pygame.display.update()
+
+pygame.quit()
+quit()
+        
