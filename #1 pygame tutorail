@@ -11,6 +11,8 @@ pygame.display.set_icon(bg)
 bg = pygame.transform.scale(bg,(Width,Height))
 alien = pygame.image.load("enemy1.png")
 alien = pygame.transform.scale(alien,(64,64))
+def rectangle():
+    pygame.draw.rect(screen,(225,225,225),200,200,200,200)
 run = True
 while run:
     for event in pygame.event.get():
@@ -19,6 +21,7 @@ while run:
     screen.fill((225,0,0))
     screen.blit(bg,(0,0))
     screen.blit(alien,(230,450))
+    rectangle()
     pygame.display.update()
 
 pygame.quit()
