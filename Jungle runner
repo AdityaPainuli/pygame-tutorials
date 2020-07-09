@@ -1,0 +1,67 @@
+import pygame
+
+
+pygame.init()
+
+#Game Varialbes..
+Width,Height = 1400,500
+bg_x = 0
+gameDisplay = pygame.display.set_mode((Width,Height))
+pygame.display.set_caption("Runner")
+icon = pygame.image.load("images/m.png")
+pygame.display.set_icon(icon)
+FPS = 10
+animate_player = True
+player_y = 300
+player_x = 400
+player_img_count = 0
+isJump = False
+velocity = 10
+bg = pygame.transform.scale(pygame.image.load("images/bg.png"),(Width,Height))
+
+#Animating
+playerimg = [pygame.image.load("images/p1.png"),pygame.image.load("images/p2.png"),pygame.image.load("images/p3.png"),pygame.image.load("images/p4.png"),
+             pygame.image.load("images/p5.png"),pygame.image.load("images/p6.png"),pygame.image.load("images/p7.png"),pygame.image.load("images/p8.png"),
+             pygame.image.load("images/p9.png"),pygame.image.load("images/p10.png")]
+def scrolling_background():
+    global bg_x
+    relative_x = bg_x % bg.get_rect().width
+    gameDisplay.blit(bg,(relative_x - bg.get_rect().width,0))
+    if relative_x < Width:
+         gameDisplay.blit(bg,(relative_x,0))
+    bg_x -= 10
+clock = pygame.time.Clock()    
+run = True
+#Gameloop:-
+while run:
+    clock.tick(FPS)
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            run = False
+    keys = pygame.key.get_pressed()
+    if not isJump:
+        if keys[pygame.K_SPACE]:
+            isJump = True
+    else:
+        if velocity >= -10:
+            gravity = 1
+            if velocity < 0:
+                gravity = -1
+            player_y -= (velocity ** 2)* 1/2 * gravity
+            velocity -= 1
+        else:
+           velocity = 10
+           isJump = False
+           
+    
+    scrolling_background()
+    gameDisplay.blit(playerimg[player_img_count],(player_x,player_y))
+    player_img_count += 1
+    if player_img_count +1 > 9:
+        player_img_count = 0
+    
+    pygame.display.update()
+
+pygame.quit()
+quit()
+
